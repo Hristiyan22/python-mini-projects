@@ -1,0 +1,65 @@
+# 🖼️ Python Pattern Drawing Project
+
+print("🌟 Welcome to the Python Pattern Drawing Program!")
+print("Choose a pattern type:")
+print("1. Right-angled Triangle")
+print("2. Square with Hollow Center")
+print("3. Diamond")
+print("4. Left-angled Triangle")
+print("5. Hollow Square")
+print("6. Pyramid")
+print("7. Reverse Pyramid")
+print("8. Rectangle with Hollow Center")
+
+choice = int(input("Enter the number corresponding to your choice: "))
+
+if choice in [1, 3, 4, 6, 7]:  
+    rows = int(input("Enter the number of rows: "))
+elif choice in [2, 5, 8]:  
+    size = int(input("Enter the size of the square/rectangle: "))
+print(" ")
+
+if choice == 1:  # Right-angled Triangle
+    for i in range(1, rows + 1):
+        print("*" * i)
+    print(" ")
+    pass
+
+elif choice == 2:  # Square with Hollow Center
+    print("*" * size)
+    for i in range(1, size - 1):
+        if i == 0 or i == -1:
+            print("*" * size)
+        else:
+            print("*" + " " * (size - 2) + "*")
+    print("*" * size)
+    pass
+
+elif choice == 3:  # Diamond
+    
+    pass
+
+elif choice == 4:  # Left-angled Triangle
+    print(" ")
+    for i in range(rows, 0 , -1):
+        print("*" * i)
+    pass
+
+elif choice == 5:  # Hollow Square
+    pass
+
+elif choice == 6:  # Pyramid
+    pass
+
+elif choice == 7:  # Reverse Pyramid
+    pass
+
+elif choice == 8:  # Rectangle with Hollow Center
+    width = int(input("Enter the width of the rectangle: "))
+    height = int(input("Enter the height of the rectangle: "))
+    pass
+
+else:
+    print("❌ Invalid choice! Please restart the program.")
+
+# Step 5: Optional - Allow the user to restart or exit
