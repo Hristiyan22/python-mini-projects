@@ -13,9 +13,9 @@ print("8. Rectangle with Hollow Center")
 
 choice = int(input("Enter the number corresponding to your choice: "))
 
-if choice in [1, 3, 4, 6, 7]:  
+if choice in [1, 3, 4, 6, 7]:
     rows = int(input("Enter the number of rows: "))
-elif choice in [2, 5, 8]:  
+elif choice in [2, 5, 8]:
     size = int(input("Enter the size of the square/rectangle: "))
 print(" ")
 
@@ -36,7 +36,23 @@ elif choice == 2:  # Square with Hollow Center
     pass
 
 elif choice == 3:  # Diamond
-    
+    for i in range(rows):
+        for j in range(rows - i - 1):
+            print(" ", end = "")
+
+        for k in range(2 * i + 1):
+            print("*",end = "")
+
+        print()
+
+    for i in range(rows - 2, -1, -1):
+        for j in range(rows - i - 1):
+            print(" ", end = "")
+
+        for k in range(2 * i + 1):
+            print("*", end="")
+
+        print()
     pass
 
 elif choice == 4:  # Left-angled Triangle
@@ -46,20 +62,36 @@ elif choice == 4:  # Left-angled Triangle
     pass
 
 elif choice == 5:  # Hollow Square
+    
     pass
 
 elif choice == 6:  # Pyramid
+    for i in range(rows):
+        for j in range(rows - i - 1):
+            print(" ", end = "")
+
+        for k in range(2*i + 1):
+            print("*",end = "")
+
+        print()
     pass
 
 elif choice == 7:  # Reverse Pyramid
+    for i in range(rows - 1, -1, -1):
+        for j in range(rows - i - 1):
+            print(" ", end = "")
+
+        for k in range(2 * i + 1):
+            print("*", end="")
+
+        print()
     pass
 
 elif choice == 8:  # Rectangle with Hollow Center
+    
     width = int(input("Enter the width of the rectangle: "))
     height = int(input("Enter the height of the rectangle: "))
     pass
 
 else:
     print("❌ Invalid choice! Please restart the program.")
-
-# Step 5: Optional - Allow the user to restart or exit
