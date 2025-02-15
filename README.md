@@ -1,19 +1,10 @@
-Mini-Projects Collection
+# Python Mini Projects
 
-Welcome to my collection of beginner-friendly mini-projects! These projects are written in Python and are designed to help beginners learn programming concepts while having fun.
+This repository contains a collection of small Python projects designed to showcase different Python concepts and techniques. These projects are simple yet practical examples that help improve coding skills and demonstrate problem-solving abilities. You can explore each project and adapt them for personal or learning purposes.
 
-Purpose:
+## Table of Contents
+1. [Bank Account Management System](https://github.com/Hristiyan22/python-mini-projects/blob/main/bank_account_managment_system.py)
+2. [Bitcoin Price with API Key](https://github.com/Hristiyan22/python-mini-projects/blob/main/bitcoin_price_with_api_key.py)
+3. [Pattern Drawing Project](https://github.com/Hristiyan22/python-mini-projects/blob/main/pattern_drawing_project.py)
 
-○ Provide a starting point for Python learners.
-
-○ Offer small, self-contained projects that are easy to understand and modify.
-
-○ Encourage hands-on practice with Python programming.
-
-Features:
-
-○ Beginner-Friendly: Each project is simple and comes with clear explanations.
-
-○ Self-Contained: All necessary code for each project is included, requiring minimal setup.
-
-○ Diverse Topics: Explore a variety of concepts, such as loops, conditionals, file handling, and more.
+Feel free to explore, contribute, and create your own variations of these mini-projects.
