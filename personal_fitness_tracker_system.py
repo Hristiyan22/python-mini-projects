@@ -14,7 +14,7 @@ def log_workout():
     try:
         duration = int(input("Enter workout duration in minutes: "))
         workouts.append((workout_type, duration))
-        return f"Logged: {workout_type} for {duration}"
+        return f"Logged: {workout_type} for {duration} minutes.\n"
     except ValueError:
         return "❌ Invalid input! Duration should be a number.\n"
 
@@ -28,7 +28,6 @@ def log_calorie_intake():
         return "❌ Invalid input! Calories should be a number.\n"
 
 
-
 def view_progress():
     total_workout = sum(duration for _, duration in workouts)
     total_calories = sum(calories)
@@ -37,30 +36,30 @@ def view_progress():
     print(f"Total Workout Time: {total_workout} minutes")
     print(f"Total Calories Consumed: {total_calories} calories")
     print(encouragement_system(total_workout, total_calories))
-    print("============================")
+    print("============================\n")
 
 
 def reset_progress():
     while True:
-        confirmation = input("Are you sure you want to reset your progress?(y/n)").lower()
+        confirmation = input("Are you sure you want to reset your progress? (y/n): ").lower()
         if confirmation == 'y':
             workouts.clear()
             calories.clear()
-            return "Progress reset for the day. Let's start fresh! 💪"
+            return "Progress reset for the day. Let's start fresh! 💪\n"
         elif confirmation == 'n':
-            return "Reset canceled. Keep up the good work!"
+            return "Reset canceled. Keep up the good work!\n"
         else:
-            print("❌ Invalid input! Please enter 'y' for Yes or 'n' for No.")
+            print("❌ Invalid input! Please enter 'y' for Yes or 'n' for No.\n")
 
 
 def set_daily_goals():
     global workout_goal, calorie_goal
     try:
-        workout_goal = int(input("Enter daily workout goal(in minutes): "))
+        workout_goal = int(input("Enter daily workout goal (in minutes): "))
         calorie_goal = int(input("Enter daily calorie limit: "))
-        return f"Daily goals set: {workout_goal} minutes workout, {calorie_goal} calories."
+        return f"Daily goals set: {workout_goal} minutes workout, {calorie_goal} calories.\n"
     except ValueError:
-        return "❌ Invalid input! Please enter numeric values."
+        return "❌ Invalid input! Please enter numeric values.\n"
 
 
 def encouragement_system(total_workout, total_calories):
@@ -97,21 +96,20 @@ def main():
         choice = input("\nEnter your choice: ")
 
         if choice == '1':
-            log_workout()
+            print(log_workout())
         elif choice == '2':
-            log_calorie_intake()
+            print(log_calorie_intake())
         elif choice == '3':
             view_progress()
         elif choice == '4':
-            reset_progress()
+            print(reset_progress())
         elif choice == '5':
-            set_daily_goals()
+            print(set_daily_goals())
         elif choice == '6':
-            encouragement_system(total_workout, total_calories)
             print("Thank you for using the Fitness Tracker. Stay healthy! 💪")
             break
         else:
-            print("Invalid choice, please try again.")
+            print("Invalid choice, please try again.\n")
 
 
 if __name__ == "__main__":
