@@ -16,7 +16,6 @@ def find_account_index(account_name):
     if account_name in account_holders:
         return account_holders.index(account_name)
     else:
-        print("❌ Account not found.")
         return None
 
 
@@ -54,18 +53,19 @@ def deposit():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        try:
-            amount = float(input("Enter amount to deposit: "))
-            if amount <= 0:
-                print("❌ Deposit amount must be greater than zero.")
-                return
+    if index is None:
+        return "❌ Account not found."
 
-            balances[index] += amount
-            transaction_histories[index].append(f"Deposited ${amount:.2f}")
-            print(f"✅${amount:.2f} was deposited successfully. New balance: ${balances[index]:.2f}")
-        except ValueError:
-            print("❌ Invalid amount! Please enter a valid number.")
+    try:
+        amount = float(input("Enter amount to deposit: "))
+        if amount <= 0:
+            return "❌ Deposit amount must be greater than zero."
+
+        balances[index] += amount
+        transaction_histories[index].append(f"Deposited ${amount:.2f}")
+        return f"✅${amount:.2f} was deposited successfully. New balance: ${balances[index]:.2f}"
+    except ValueError:
+        return "❌ Invalid amount! Please enter a valid number."
 
 
 def withdraw():
@@ -74,22 +74,22 @@ def withdraw():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        try:
-            amount = float(input("Enter amount to withdraw: "))
-            if amount <= 0:
-                print("❌ Withdraw amount must be greater than zero.")
-                return
+    if index is None:
+        return "❌ Account not found."
 
-            if balances[index] < amount:
-                print("❌ Insufficient balance!")
-                return
+    try:
+        amount = float(input("Enter amount to withdraw: "))
+        if amount <= 0:
+            return "❌ Withdraw amount must be greater than zero."
 
-            balances[index] -= amount
-            transaction_histories[index].append(f"Withdrawn ${amount:.2f}")
-            print(f"✅${amount:.2f} was withdrawn successfully. New balance: ${balances[index]:.2f}")
-        except ValueError:
-            print("❌ Invalid amount! Please enter a valid number.")
+        if balances[index] < amount:
+            return "❌ Insufficient balance!"
+
+        balances[index] -= amount
+        transaction_histories[index].append(f"Withdrawn ${amount:.2f}")
+        return f"✅${amount:.2f} was withdrawn successfully. New balance: ${balances[index]:.2f}"
+    except ValueError:
+        return "❌ Invalid amount! Please enter a valid number."
 
 
 def check_balance():
@@ -98,16 +98,18 @@ def check_balance():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        print(f"{account_name}'s account balance is: ${balances[index]:.2f}")
+    if index is None:
+        return "❌ Account not found."
+
+    return f"{account_name}'s account balance is: ${balances[index]:.2f}"
 
 
 def list_accounts():
     """List all account holders and details."""
     if not account_holders:
-        print("There aren't any registered accounts at the moment!")
+        return "There aren't any registered accounts at the moment!"
     else:
-        print(account_holders)
+        return account_holders
 
 
 def transfer_funds():
@@ -116,33 +118,33 @@ def transfer_funds():
 
     index1 = find_account_index(account_name)
 
-    if index1 is not None:  # Account exists
-        recipient_account_name = input("Enter the recipient's account name: ")
+    if index1 is None:
+        return "❌ Account not found."
 
-        index2 = find_account_index(recipient_account_name)
+    recipient_account_name = input("Enter the recipient's account name: ")
 
-        if index2 is not None:  # Recipient account exists
-            try:
-                amount = float(input("Enter the amount of transfer: "))
-                if amount <= 0:
-                    print("❌ Transfer amount must be greater than zero.")
-                    return
+    index2 = find_account_index(recipient_account_name)
 
-                if balances[index1] < amount:
-                    print("❌ Insufficient balance!")
-                    return
+    if index2 is None:
+        return "❌ Recipient account not found."
 
-                balances[index1] -= amount
-                transaction_histories[index1].append(f"Transferred ${amount:.2f}")
-                print(
-                    f"✅${amount:.2f} was transferred successfully to {recipient_account_name}. New balance: ${balances[index1]:.2f}")
+    try:
+        amount = float(input("Enter the amount of transfer: "))
+        if amount <= 0:
+            return "❌ Transfer amount must be greater than zero."
 
-                balances[index2] += amount
-                transaction_histories[index2].append(f"Received ${amount:.2f}")
-            except ValueError:
-                print("❌ Invalid amount! Please enter a valid number.")
-        else:
-            print("❌ Account not found.")
+        if balances[index1] < amount:
+            return "❌ Insufficient balance!"
+
+        balances[index1] -= amount
+        transaction_histories[index1].append(f"Transferred ${amount:.2f}")
+        balances[index2] += amount
+        transaction_histories[index2].append(f"Received ${amount:.2f}")
+
+        return f"✅${amount:.2f} was transferred successfully to {recipient_account_name}. New balance: ${balances[index1]:.2f}"
+
+    except ValueError:
+        return "❌ Invalid amount! Please enter a valid number."
 
 
 def view_transaction_history():
@@ -151,8 +153,10 @@ def view_transaction_history():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        print(transaction_histories[index])
+    if index is None:
+        return "❌ Account not found."
+
+    return transaction_histories[index]
 
 
 def apply_for_loan():
@@ -161,37 +165,37 @@ def apply_for_loan():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        try:
-            amount_of_loan = float(input("Enter amount of loan you want: "))
+    if index is None:
+        return "❌ Account not found."
 
-            if 0 < amount_of_loan <= MAX_LOAN_AMOUNT:
-                months_to_repay_the_loan = int(
-                    input("Enter the repayment period in months (24 months is the maximum period): "))
+    try:
+        amount_of_loan = float(input("Enter amount of loan you want: "))
 
-                if 1 <= months_to_repay_the_loan <= 24:
-                    total_amount_to_repay = amount_of_loan * (1 + INTEREST_RATE)
-                    monthly_installment = total_amount_to_repay / months_to_repay_the_loan
+        if 0 < amount_of_loan <= MAX_LOAN_AMOUNT:
+            months_to_repay_the_loan = int(
+                input("Enter the repayment period in months (24 months is the maximum period): "))
 
-                    loans[index] = total_amount_to_repay
-                    monthly_installments[index] = monthly_installment
+            if 1 <= months_to_repay_the_loan <= 24:
+                total_amount_to_repay = amount_of_loan * (1 + INTEREST_RATE)
+                monthly_installment = total_amount_to_repay / months_to_repay_the_loan
 
-                    while len(loan_history) <= index:
-                        loan_history.append([])
+                loans[index] = total_amount_to_repay
+                monthly_installments[index] = monthly_installment
 
-                    loan_history[index].append(f"Loaned ${amount_of_loan:.2f}")
+                while len(loan_history) <= index:
+                    loan_history.append([])
 
-                    print(f"✅ The loan of ${amount_of_loan:.2f} was approved successfully!")
-                    print(f"The total amount you will need to repay for the loan is: ${total_amount_to_repay:.2f}")
-                    print(f"The minimum monthly installment is: ${monthly_installments[index]:.2f}")
-                else:
-                    print("❌ The repayment period should be 24 months or less.")
+                loan_history[index].append(f"Loaned ${amount_of_loan:.2f}")
+
+                return f"✅ The loan of ${amount_of_loan:.2f} was approved successfully!\n" \
+                       f"The total amount you will need to repay for the loan is: ${total_amount_to_repay:.2f}\n" \
+                       f"The minimum monthly installment is: ${monthly_installments[index]:.2f}"
             else:
-                print(f"❌ The loan amount must be greater than 0 and no more than ${MAX_LOAN_AMOUNT}.")
-        except ValueError:
-            print("❌ Invalid amount! Please enter a valid number.")
-    else:
-        print("❌ Account not found.")
+                return "❌ The repayment period should be 24 months or less."
+        else:
+            return f"❌ The loan amount must be greater than 0 and no more than ${MAX_LOAN_AMOUNT}."
+    except ValueError:
+        return "❌ Invalid amount! Please enter a valid number."
 
 
 def repay_loan():
@@ -200,34 +204,36 @@ def repay_loan():
 
     index = find_account_index(account_name)
 
-    if index is not None:  # Account exists
-        if loans[index] == 0:
-            print("❌ No active loan found for this account.")
-            return
+    if index is None:
+        return "❌ Account not found."
 
-        try:
-            amount_of_installment = float(input("Enter amount of monthly installment: "))
+    if loans[index] == 0:
+        return "❌ No active loan found for this account."
 
-            if amount_of_installment < monthly_installments[index]:
-                print(f"❌ Deposit amount must be the same or greater than ${monthly_installments[index]:.2f}.")
-                return
+    try:
+        amount_of_installment = float(input("Enter amount of monthly installment: "))
 
-            if amount_of_installment > loans[index]:
-                refund = amount_of_installment - loans[index]
-                print(f"🔄 Overpayment detected! Returning ${refund:.2f} to your account.")
-                amount_of_installment = loans[index]
+        if amount_of_installment < monthly_installments[index]:
+            return f"❌ Deposit amount must be the same or greater than ${monthly_installments[index]:.2f}."
 
-            loans[index] -= amount_of_installment
-            loan_history[index].append(f"Repaid ${amount_of_installment:.2f}")
+        if amount_of_installment > loans[index]:
+            refund = amount_of_installment - loans[index]
+            loans[index] = 0
+            monthly_installments[index] = 0
+            return f"🔄 Overpayment detected! Returning ${refund:.2f} to your account. Loan fully repaid!"
 
-            print(f"✅ ${amount_of_installment:.2f} was withdrawn successfully. New balance: ${loans[index]:.2f}")
+        loans[index] -= amount_of_installment
+        loan_history[index].append(f"Repaid ${amount_of_installment:.2f}")
 
-            if loans[index] <= 0:
-                monthly_installments[index] = 0
-                loans[index] = 0
-                print("🎉 Loan fully repaid!")
-        except ValueError:
-            print("❌ Invalid amount! Please enter a valid number.")
+        if loans[index] <= 0:
+            monthly_installments[index] = 0
+            loans[index] = 0
+            return "🎉 Loan fully repaid!"
+
+        return f"✅ ${amount_of_installment:.2f} was withdrawn successfully. New balance: ${loans[index]:.2f}"
+
+    except ValueError:
+        return "❌ Invalid amount! Please enter a valid number."
 
 
 def check_loan_status():
@@ -236,18 +242,17 @@ def check_loan_status():
 
     index = find_account_index(account_name)
 
-    if index is not None:
-        if loans[index] == 0:
-            print("❌ No active loan found for this account.")
-        else:
-            if monthly_installments[index] == 0:
-                print("You have no installments to pay.")
-            else:
-                print(f"Loan Status for {account_name}:")
-                print(f"Total Loan: ${loans[index]:.2f}")
-                print(f"Remaining Loan: ${loans[index]:.2f}")
-                print(f"Monthly Installment: ${monthly_installments[index]:.2f}")
-                print(f"Loan History: {loan_history[index]}")
+    if index is None:
+        return "❌ Account not found."
+
+    if loans[index] == 0:
+        return "❌ No active loan found for this account."
+
+    return f"Loan Status for {account_name}:\n" \
+           f"Total Loan: ${loans[index]:.2f}\n" \
+           f"Remaining Loan: ${loans[index]:.2f}\n" \
+           f"Monthly Installment: ${monthly_installments[index]:.2f}\n" \
+           f"Loan History: {loan_history[index]}"
 
 
 def identify_card_type():
@@ -256,36 +261,30 @@ def identify_card_type():
     length = len(card_number)
 
     if length not in [13, 15, 16, 19]:
-        print("❌ Invalid card number length!")
-        return
+        return "❌ Invalid card number length!"
 
     if card_number[0] == '4':
         if length == 13 or length == 16 or length == 19:
-            print("Visa")
-            return
+            return "Visa"
 
     if length == 16:
         for i in range(51, 56):
             if card_number[:2] == str(i):
-                print("MasterCard")
-                return
+                return "MasterCard"
 
         for j in range(2221, 2721):
             if card_number[:4] == str(j):
-                print("MasterCard")
-                return
+                return "MasterCard"
 
     if length == 15:
         if card_number[:2] in ['34', '37']:
-            print("American Express")
-            return
+            return "American Express"
 
     if length == 16:
         if card_number[:4] == '6011':
-            print("Discover")
-            return
+            return "Discover"
 
-    print("❌ The card type cannot be recognized!")
+    return "❌ The card type cannot be recognized!"
 
 
 def main():
@@ -298,29 +297,28 @@ def main():
             print("❌ Invalid input! Please enter a valid number.")
             continue
 
-        # Map choices to functions
         if choice == 1:
-            create_account()
+            print(create_account())
         elif choice == 2:
-            deposit()
+            print(deposit())
         elif choice == 3:
-            withdraw()
+            print(withdraw())
         elif choice == 4:
-            check_balance()
+            print(check_balance())
         elif choice == 5:
-            list_accounts()
+            print(list_accounts())
         elif choice == 6:
-            transfer_funds()
+            print(transfer_funds())
         elif choice == 7:
-            view_transaction_history()
+            print(view_transaction_history())
         elif choice == 8:
-            apply_for_loan()
+            print(apply_for_loan())
         elif choice == 9:
-            repay_loan()
+            print(repay_loan())
         elif choice == 10:
-            check_loan_status()
+            print(check_loan_status())
         elif choice == 11:
-            identify_card_type()
+            print(identify_card_type())
         elif choice == 0:
             print("Goodbye! 👋")
             break
