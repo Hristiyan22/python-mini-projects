@@ -9,4 +9,4 @@ This repository contains a collection of small Python projects designed to showc
 4. [Pattern Drawing Project](https://github.com/Hristiyan22/python-mini-projects/blob/main/pattern_drawing_project.py)
 5. [Personal Fitness Tracker System](https://github.com/Hristiyan22/python-mini-projects/blob/main/personal_fitness_tracker_system.py)
 
-Feel free to explore, contribute, and create your own variations of these mini-projects.
+Feel free to explore and create your own variations of these mini-projects.
